@@ -273,6 +273,21 @@ export const ICON_KLOBRILLE = [
   '..mmmmmm..',
 ]
 
+// WC-Schild — weißes Pictogramm-Schild, markiert jede Toilette auf
+// der Stadtkarte (wie die kleinen WC-Symbole auf der Klomanager-Karte)
+export const ICON_WC_SCHILD = [
+  'wwwwwwwwww',
+  'wwwoooowww',
+  'wwwoooowww',
+  'wwwwoowwww',
+  'wwooooooww',
+  'woooooooow',
+  'woooooooow',
+  'woooooooow',
+  'wooowwooow',
+  'wooowwooow',
+]
+
 // ── Zeichen-Engine ────────────────────────────────────────────────
 
 // Malt ein Sprite-Raster auf einen Canvas-Kontext.

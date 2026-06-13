@@ -24,7 +24,7 @@ const B = 110
 const H = 52
 const SCALE = 5
 
-export default function InnenSzene({ toilette, gekauft, anzahlAusstattung = 0, anzahlPersonal = 0, sauberkeit = 100 }) {
+export default function InnenSzene({ toilette, gekauft, anzahlAusstattung = 0, anzahlPersonal = 0, sauberkeit = 100, ausstattungIds = [] }) {
   const ref = useRef(null)
 
   useEffect(() => {
@@ -56,6 +56,45 @@ export default function InnenSzene({ toilette, gekauft, anzahlAusstattung = 0, a
         ctx.globalAlpha = glitzert ? 1 : 0.85
         px(14 + i * 14, 13, 1, 4, FLIESEN_FARBEN[i % FLIESEN_FARBEN.length])
         ctx.globalAlpha = 1
+      }
+
+      // ── Großes Klobecken — das Original-Klomanager-Schaufenster ──
+      // Material zeigt die teuerste gekaufte Klobrille: Standard
+      // (Keramik weiß) → Holz → Marmor (Beton-Grau) → Gold (Senfgelb).
+      {
+        const beckenFarbe = ausstattungIds.includes('brille-gold')
+          ? PALETTE.m
+          : ausstattungIds.includes('brille-marmor')
+            ? PALETTE.g
+            : ausstattungIds.includes('brille-holz')
+              ? PALETTE.T
+              : PALETTE.w
+
+        // Spülkasten oben
+        px(86, 16, 18, 9, beckenFarbe)
+        px(86, 16, 18, 1, PALETTE.o)
+        // Becken-Korpus, wird nach unten breiter
+        px(84, 26, 22, 4, beckenFarbe)
+        px(87, 30, 16, 7, beckenFarbe)
+        px(89, 37, 12, 3, beckenFarbe)
+        // Klobrillen-Ring (dunkler Rand)
+        px(84, 25, 22, 1, PALETTE.o)
+        px(87, 29, 16, 1, PALETTE.o)
+
+        // Getränkehalter — das berühmte Windows-2000-Upgrade
+        if (ausstattungIds.includes('getraenkehalter')) {
+          px(105, 28, 3, 6, PALETTE.c)
+          px(105, 27, 3, 1, PALETTE.c)
+        }
+
+        // Goldene Klobrille glänzt gelegentlich
+        if (ausstattungIds.includes('brille-gold')) {
+          const glanz = Math.sin(t * 2.4) > 0.7
+          ctx.globalAlpha = glanz ? 1 : 0.5
+          px(88, 27, 2, 1, PALETTE.w)
+          px(98, 32, 2, 1, PALETTE.w)
+          ctx.globalAlpha = 1
+        }
       }
 
       // ── Waschbecken-Reihe ──
@@ -95,7 +134,7 @@ export default function InnenSzene({ toilette, gekauft, anzahlAusstattung = 0, a
           // Leichtes Schwanken (Ungeduld) + langsames Hin-und-Her-Schlendern
           const schwanken = Math.sin(t * 2 + i * 1.7) * 0.6
           const schlendern = Math.sin(t * 0.35 + i * 2.3) * 1.5
-          const x = 50 + i * 9 + (i % 2) * 2 + schlendern
+          const x = 44 + i * 7 + (i % 2) * 2 + schlendern
           const y = 26 + (i % 3) * 4 + schwanken
           zeichneSprite(ctx, figur, SCALE, x * SCALE, y * SCALE)
         }
@@ -117,7 +156,7 @@ export default function InnenSzene({ toilette, gekauft, anzahlAusstattung = 0, a
 
     frameId = requestAnimationFrame(zeichneFrame)
     return () => cancelAnimationFrame(frameId)
-  }, [toilette, gekauft, anzahlAusstattung, anzahlPersonal, sauberkeit])
+  }, [toilette, gekauft, anzahlAusstattung, anzahlPersonal, sauberkeit, ausstattungIds])
 
   return (
     <div className="szene-rahmen">

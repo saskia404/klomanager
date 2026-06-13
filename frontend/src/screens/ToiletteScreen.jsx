@@ -77,6 +77,7 @@ export default function ToiletteScreen({ spiel, dispatch }) {
             anzahlAusstattung={klo?.ausstattung.length ?? 0}
             anzahlPersonal={klo?.personal.length ?? 0}
             sauberkeit={klo?.sauberkeit ?? 100}
+            ausstattungIds={klo?.ausstattung ?? []}
           />
 
           <div className="beschreibung">"{toilette.beschreibung}"</div>

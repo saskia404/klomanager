@@ -5,7 +5,7 @@
 // Button heißt für nicht-letzte Hot-Seat-Spieler "FERTIG → NÄCHSTE
 // PERSON".
 import PixelSprite from '../retro/PixelSprite.jsx'
-import { GEBAEUDE, ICON_KLOBRILLE } from '../retro/sprites.js'
+import { GEBAEUDE, ICON_KLOBRILLE, ICON_WC_SCHILD } from '../retro/sprites.js'
 import { TOILETTEN } from '../data/toiletten.js'
 import { STANDORTE } from '../data/standorte.js'
 
@@ -54,6 +54,12 @@ export default function StadtScreen({ spiel, dispatch }) {
                         title={toilette.name}
                       >
                         <PixelSprite raster={GEBAEUDE[toilette.typ]} scale={4} />
+                        {/* WC-Schild — markiert JEDE Toilette auf der Karte,
+                            egal ob schon gekauft (wie die kleinen weißen
+                            Pictogramme auf der alten Klomanager-Stadtkarte) */}
+                        <span className="klo-schild">
+                          <PixelSprite raster={ICON_WC_SCHILD} scale={2} />
+                        </span>
                         {besitzer && (
                           <span className="klo-stern" style={{ filter: istMeine ? 'none' : 'grayscale(0.4)' }}>
                             <PixelSprite raster={ICON_KLOBRILLE} scale={2} />

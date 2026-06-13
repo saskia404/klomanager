@@ -178,6 +178,10 @@ body {
 .klo-gebaeude.gekauft { border-color: rgba(125, 255, 90, 0.35); }
 
 .klo-stern { position: absolute; top: 0; right: 2px; }
+
+/* WC-Pictogramm-Schild — sitzt oben links auf jedem Klo-Gebäude,
+   wie die kleinen weißen WC-Symbole auf der alten Klomanager-Karte */
+.klo-schild { position: absolute; top: 0; left: 2px; opacity: 0.9; }
 .klo-label {
   font-size: 11px;
   text-align: center;
