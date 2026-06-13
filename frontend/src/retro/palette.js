@@ -40,4 +40,12 @@ export const PALETTE = {
   M: '#8a6a14',   // Oliv dunkel (Schatten zu Senfgelb)
   z: '#2a9d8f',   // Türkis/Petrol (Pissoir-Klobrille)
   j: '#e8862e',   // Orange (Klobrille)
+
+  // Glanzlichter & Schattierungen — für detailreichere, "rundere"
+  // Sprites (z.B. das große Klobecken) statt flacher Einzelfarben
+  h: '#fffbe6',   // Cremeweiß-Glanzlicht (Porzellan- & Gold-Highlight)
+  x: '#cfc7b8',   // Warmer Schatten auf weißem Porzellan
+  i: '#c4c4ce',   // Helle Marmor-Ader
+  v: '#3a2515',   // Dunkles Holz (Maserung-Schatten)
+  V: '#8a5f3a',   // Helles Holz (Glanzkante)
 }

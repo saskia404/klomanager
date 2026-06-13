@@ -288,6 +288,40 @@ export const ICON_WC_SCHILD = [
   'wooowwooow',
 ]
 
+// ── Großes Klobecken (22 × 25 Pixel) ──────────────────────────────
+// Detail-Sprite fürs Klo-Innere. Nutzt Platzhalter-Buchstaben statt
+// fester Farben: B = Grundfarbe, H = Glanzlicht, S = Schatten.
+// InnenSzene.jsx ersetzt B/H/S je nach Material (Keramik, Holz,
+// Marmor, Gold) über zeichneSpriteEingefaerbt(). 'o' = Umriss,
+// '.' = durchsichtig.
+export const KLOBECKEN = [
+  '..oooooooooooooooooo..',
+  '...oHHHHHHHHHHHHHSo...',
+  '...oHHHHHHBBBBBBBSo...',
+  '...oHHHHHHBBBBBBBSo...',
+  '...oHHHHHBBBBBBBSSo...',
+  '...oHHHHHBBBBBBBSSo...',
+  '...oHHHHHBBBBBBBSSo...',
+  '...oHHHHHBBBBBBBSSo...',
+  '...oooooooooooooooo...',
+  '...SSSSSSSSSSSSSSSS...',
+  '.........oBBo.........',
+  '.........oBBo.........',
+  '.....oHHHHHHHHHHo.....',
+  '.....oHHHHBBBBBSo.....',
+  '...oHHHHHBBBBBBBSSo...',
+  '...oHHHHHBBBBBBBSSo...',
+  '...oHHHHBBBBBBBBSSo...',
+  '...oHHHHBBBBBBBBSSo...',
+  '...oHHHBBBBBBBBSSSo...',
+  '...oHHHBBBBBBBBSSSo...',
+  '...SSSSSSSSSSSSSSSS...',
+  '...oooooooooooooooo...',
+  '......oBBBBBBBBo......',
+  '......oBBBBBBBBo......',
+  '......oooooooooo......',
+]
+
 // ── Zeichen-Engine ────────────────────────────────────────────────
 
 // Malt ein Sprite-Raster auf einen Canvas-Kontext.
@@ -297,6 +331,23 @@ export function zeichneSprite(ctx, raster, scale = 4, offsetX = 0, offsetY = 0) 
     for (let x = 0; x < raster[y].length; x++) {
       const farbe = PALETTE[raster[y][x]]
       if (!farbe) continue              // '.' oder unbekannt = durchsichtig
+      ctx.fillStyle = farbe
+      ctx.fillRect(offsetX + x * scale, offsetY + y * scale, scale, scale)
+    }
+  }
+}
+
+// Wie zeichneSprite, aber mit eigener Farbtabelle statt PALETTE —
+// für Sprites mit austauschbaren Material-Farben (z.B. Klobecken:
+// B/H/S = Grundfarbe/Glanzlicht/Schatten je nach Ausstattung).
+// Buchstaben, die nicht in farbkarte stehen, fallen auf PALETTE
+// zurück (z.B. 'o' für den Umriss).
+export function zeichneSpriteEingefaerbt(ctx, raster, farbkarte, scale = 4, offsetX = 0, offsetY = 0) {
+  for (let y = 0; y < raster.length; y++) {
+    for (let x = 0; x < raster[y].length; x++) {
+      const zeichen = raster[y][x]
+      const farbe = farbkarte[zeichen] ?? PALETTE[zeichen]
+      if (!farbe) continue
       ctx.fillStyle = farbe
       ctx.fillRect(offsetX + x * scale, offsetY + y * scale, scale, scale)
     }

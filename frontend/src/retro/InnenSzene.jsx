@@ -5,7 +5,16 @@
 // Fliegen rum.
 import { useRef, useEffect } from 'react'
 import { PALETTE } from './palette.js'
-import { zeichneSprite, FIGUREN } from './sprites.js'
+import { zeichneSprite, zeichneSpriteEingefaerbt, FIGUREN, KLOBECKEN } from './sprites.js'
+
+// Farbtabellen fürs Klobecken-Sprite (B = Grundfarbe, H = Glanzlicht,
+// S = Schatten) — eine pro "Schüssel-Material" aus der Ausstattung.
+const BECKEN_FARBEN = {
+  standard: { B: PALETTE.w, H: PALETTE.h, S: PALETTE.x },   // Keramik weiß
+  holz:     { B: PALETTE.T, H: PALETTE.V, S: PALETTE.v },   // Holz
+  marmor:   { B: PALETTE.g, H: PALETTE.i, S: PALETTE.G },   // Marmor grau
+  gold:     { B: PALETTE.m, H: PALETTE.h, S: PALETTE.M },   // Gold
+}
 
 // Wand-/Boden-Farben je WC-Typ
 const RAUM_FARBEN = {
@@ -61,38 +70,30 @@ export default function InnenSzene({ toilette, gekauft, anzahlAusstattung = 0, a
       // ── Großes Klobecken — das Original-Klomanager-Schaufenster ──
       // Material zeigt die teuerste gekaufte Klobrille: Standard
       // (Keramik weiß) → Holz → Marmor (Beton-Grau) → Gold (Senfgelb).
+      // Feines 22×25-Pixel-Sprite statt grober Rechtecke.
       {
-        const beckenFarbe = ausstattungIds.includes('brille-gold')
-          ? PALETTE.m
+        const material = ausstattungIds.includes('brille-gold')
+          ? 'gold'
           : ausstattungIds.includes('brille-marmor')
-            ? PALETTE.g
+            ? 'marmor'
             : ausstattungIds.includes('brille-holz')
-              ? PALETTE.T
-              : PALETTE.w
+              ? 'holz'
+              : 'standard'
 
-        // Spülkasten oben
-        px(86, 16, 18, 9, beckenFarbe)
-        px(86, 16, 18, 1, PALETTE.o)
-        // Becken-Korpus, wird nach unten breiter
-        px(84, 26, 22, 4, beckenFarbe)
-        px(87, 30, 16, 7, beckenFarbe)
-        px(89, 37, 12, 3, beckenFarbe)
-        // Klobrillen-Ring (dunkler Rand)
-        px(84, 25, 22, 1, PALETTE.o)
-        px(87, 29, 16, 1, PALETTE.o)
+        zeichneSpriteEingefaerbt(ctx, KLOBECKEN, BECKEN_FARBEN[material], SCALE, 85 * SCALE, 15 * SCALE)
 
         // Getränkehalter — das berühmte Windows-2000-Upgrade
         if (ausstattungIds.includes('getraenkehalter')) {
-          px(105, 28, 3, 6, PALETTE.c)
-          px(105, 27, 3, 1, PALETTE.c)
+          px(107, 31, 3, 4, PALETTE.c)
+          px(107, 30, 3, 1, PALETTE.c)
         }
 
         // Goldene Klobrille glänzt gelegentlich
-        if (ausstattungIds.includes('brille-gold')) {
+        if (material === 'gold') {
           const glanz = Math.sin(t * 2.4) > 0.7
-          ctx.globalAlpha = glanz ? 1 : 0.5
-          px(88, 27, 2, 1, PALETTE.w)
-          px(98, 32, 2, 1, PALETTE.w)
+          ctx.globalAlpha = glanz ? 1 : 0.4
+          px(92, 28, 2, 1, PALETTE.h)
+          px(94, 32, 2, 1, PALETTE.h)
           ctx.globalAlpha = 1
         }
       }
