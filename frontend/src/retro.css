@@ -11,11 +11,15 @@
   --panel-dunkel: #121019;
   --text: #f4f0e6;
   --text-dim: #9a96b0;
-  --amber: #ffb347;
+  /* Klomanager-Markenfarben statt Kiezmanager-Neonpalette:
+     Senfgelb (Hauptakzent), Türkis & Lila (bunte Klobrillen) */
+  --amber: #d4a629;
   --gruen: #7dff5a;
   --rot: #e8453c;
-  --cyan: #3fe0ff;
-  --pink: #ff4d8f;
+  --cyan: #2a9d8f;
+  --pink: #a06bc4;
+  --orange: #e8862e;
+  --oliv: #8a6a14;
   --geld: #b8e994;
 }
 
@@ -102,8 +106,8 @@ body {
 .status-logo {
   font-family: 'Press Start 2P', 'Courier New', monospace;
   font-size: 13px;
-  color: var(--text);
-  text-shadow: 2px 2px 0 var(--pink);
+  color: var(--amber);
+  text-shadow: 2px 2px 0 var(--oliv);
 }
 .status-wert { color: var(--text-dim); font-size: 14px; }
 .status-wert b { color: var(--text); }

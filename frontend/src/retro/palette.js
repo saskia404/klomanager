@@ -28,10 +28,16 @@ export const PALETTE = {
   t: '#4a2f1d',   // Tür / Holz dunkel
   T: '#6b4528',   // Holz hell
   s: '#c9b18c',   // Haut
-  e: '#e8453c',   // Signalrot (Markise, Fehler)
-  u: '#3a6ea5',   // Blau (Jeans, Polizei)
-  p: '#8b5cf6',   // Lila (Raver)
+  e: '#e8453c',   // Signalrot (Markise, Fehler, rote Klobrille)
+  u: '#3a6ea5',   // Blau (Jeans, Polizei, Rollstuhl-Symbol)
+  p: '#8b5cf6',   // Lila (Raver, lila Klobrille)
   y: '#2f9e44',   // Grün (Geld)
   k: '#1d1d24',   // Anthrazit (Club-Fassade)
   K: '#2c2c36',   // Anthrazit hell
+
+  // Klomanager-Markenfarben — bunte Klobrillen & Senfgelb-Branding
+  m: '#d4a629',   // Senfgelb (Klomanager-Logo, Luxus-Klobrille)
+  M: '#8a6a14',   // Oliv dunkel (Schatten zu Senfgelb)
+  z: '#2a9d8f',   // Türkis/Petrol (Pissoir-Klobrille)
+  j: '#e8862e',   // Orange (Klobrille)
 }

@@ -5,7 +5,7 @@
 // Button heißt für nicht-letzte Hot-Seat-Spieler "FERTIG → NÄCHSTE
 // PERSON".
 import PixelSprite from '../retro/PixelSprite.jsx'
-import { GEBAEUDE, ICON_STERN } from '../retro/sprites.js'
+import { GEBAEUDE, ICON_KLOBRILLE } from '../retro/sprites.js'
 import { TOILETTEN } from '../data/toiletten.js'
 import { STANDORTE } from '../data/standorte.js'
 
@@ -56,7 +56,7 @@ export default function StadtScreen({ spiel, dispatch }) {
                         <PixelSprite raster={GEBAEUDE[toilette.typ]} scale={4} />
                         {besitzer && (
                           <span className="klo-stern" style={{ filter: istMeine ? 'none' : 'grayscale(0.4)' }}>
-                            <PixelSprite raster={ICON_STERN} scale={2} />
+                            <PixelSprite raster={ICON_KLOBRILLE} scale={2} />
                           </span>
                         )}
                         <span className="klo-label">{toilette.name}</span>

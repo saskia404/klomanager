@@ -12,8 +12,8 @@ export const GEBAEUDE_STANDARD = [
   '.DDDDDDDDDDDDDDDD.',
   '.wwwwwwwwwwwwwwww.',
   '.wuuwwwwwwwwwwuuw.',
-  '.wwwwwwccwwwwwwww.',
-  '.wwwwwwccwwwwwwww.',
+  '.wwwwwwppwwwwwwww.',
+  '.wwwwwwppwwwwwwww.',
   '.wwFFwwwwwwwwFFww.',
   '.wwFFwwwwwwwwFFww.',
   '.wGwwwwwwwwwwwwGw.',
@@ -28,8 +28,8 @@ export const GEBAEUDE_PISSOIR = [
   '..................',
   '..................',
   '.GGGGGGGGGGGGGGGG.',
-  '.GllllllllllllllG.',
-  '.GlGlGGlGGlGGlGlG.',
+  '.GzzzzzzzzzzzzzzG.',
+  '.GzGzGGzGGzGGzGzG.',
   '.ewewewewewewewew.',
   '.GFFGGFFGGFFGGFFG.',
   '.GFFGGFFGGFFGGFFG.',
@@ -47,12 +47,12 @@ export const GEBAEUDE_LUXUS = [
   '.wggggggggggggggw.',
   '.wgwgwwgggwgwgwwg.',
   '.wwwwwwwwwwwwwwww.',
-  '.wFFFFFaaFFFFFwww.',
-  '.wFaFFFaaFFFaFwww.',
-  '.wFFFFFaaFFFFFwww.',
+  '.wFFFFFmmFFFFFwww.',
+  '.wFmFFFmmFFFmFwww.',
+  '.wFFFFFmmFFFFFwww.',
   '.wwwwwwwwwwwwwwww.',
-  '.wFFaFFwwttttwwww.',
-  '.wFaaFFwwttttwwww.',
+  '.wFFmFFwwttttwwww.',
+  '.wFmmFFwwttttwwww.',
   '.wwwwwwwwtottwwww.',
   'oooooooooooooooooo',
 ]
@@ -257,6 +257,20 @@ export const ICON_STERN = [
   '..........',
   '..........',
   '..........',
+]
+
+// Senfgelbe Klobrille — Klomanager-Markenzeichen, markiert eigene Klos
+export const ICON_KLOBRILLE = [
+  '..mmmmmm..',
+  '.mMMMMMMm.',
+  'mM......Mm',
+  'mM......Mm',
+  'mM......Mm',
+  'mM......Mm',
+  'mM......Mm',
+  'mM......Mm',
+  '.mMMMMMMm.',
+  '..mmmmmm..',
 ]
 
 // ── Zeichen-Engine ────────────────────────────────────────────────
