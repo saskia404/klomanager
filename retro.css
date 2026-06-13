@@ -1,0 +1,360 @@
+/* ════════════════════════════════════════════════════════════════
+   KIEZ MANAGER — Edle Retro-Pixel-Art
+   DOS-Panel-Look: dicke Pixel-Rahmen, hell oben/links + dunkel
+   unten/rechts (wie eingedrückte/erhabene Flächen in alten UIs)
+   ════════════════════════════════════════════════════════════════ */
+
+:root {
+  --bg: #1a1826;          /* dunkles Blaugrau — der "Monitor" */
+  --panel: #2c2a3a;
+  --panel-hell: #4a4762;
+  --panel-dunkel: #121019;
+  --text: #f4f0e6;
+  --text-dim: #9a96b0;
+  --amber: #ffb347;
+  --gruen: #7dff5a;
+  --rot: #e8453c;
+  --cyan: #3fe0ff;
+  --pink: #ff4d8f;
+  --geld: #b8e994;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+body {
+  background: var(--bg);
+  /* dezente Scanlines — Retro-Monitor-Gefühl, kaum sichtbar */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.12) 0px, rgba(0, 0, 0, 0.12) 1px,
+    transparent 1px, transparent 4px
+  );
+  color: var(--text);
+  font-family: 'Courier New', monospace;
+  font-size: 15px;
+  image-rendering: pixelated;
+}
+
+.pixel-canvas { display: block; }
+
+/* Pixel-Schrift für Headlines (fällt auf Monospace zurück) */
+.pixel-font {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  line-height: 1.6;
+}
+
+/* ── DOS-Panel: erhabener Pixel-Rahmen ── */
+.panel {
+  background: var(--panel);
+  border: 4px solid;
+  border-color: var(--panel-hell) var(--panel-dunkel) var(--panel-dunkel) var(--panel-hell);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.45);
+  padding: 14px;
+}
+
+.panel-titel {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: 11px;
+  color: var(--amber);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  text-shadow: 2px 2px 0 var(--panel-dunkel);
+}
+
+/* ── Pixel-Button: drückt sich sichtbar ein ── */
+.pixel-btn {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: 10px;
+  color: var(--text);
+  background: var(--panel-hell);
+  border: 4px solid;
+  border-color: #6e6a8e var(--panel-dunkel) var(--panel-dunkel) #6e6a8e;
+  padding: 10px 14px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.pixel-btn:hover { background: #5a5678; }
+.pixel-btn:active {
+  border-color: var(--panel-dunkel) #6e6a8e #6e6a8e var(--panel-dunkel);
+  transform: translate(2px, 2px);
+}
+.pixel-btn:disabled {
+  color: var(--text-dim);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.pixel-btn.primaer { background: #8a5a14; border-color: var(--amber) #4a2f08 #4a2f08 var(--amber); }
+.pixel-btn.primaer:hover { background: #a06a1a; }
+.pixel-btn.gefahr { background: #6e1d18; border-color: var(--rot) #3a0e0b #3a0e0b var(--rot); }
+
+/* ── Statusleiste oben ── */
+.statusleiste {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  padding: 12px 18px;
+  background: var(--panel);
+  border-bottom: 4px solid var(--panel-dunkel);
+}
+.status-logo {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: 13px;
+  color: var(--text);
+  text-shadow: 2px 2px 0 var(--pink);
+}
+.status-wert { color: var(--text-dim); font-size: 14px; }
+.status-wert b { color: var(--text); }
+.status-wert.geld b { color: var(--geld); }
+
+/* ── Layout ── */
+.spiel {
+  max-width: 1100px;
+  margin: 0 auto;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.screen-bereich { flex: 1; padding: 18px; }
+
+/* ── Stadtübersicht: Kiez-Raster ── */
+.kiez-karte {
+  display: grid;
+  grid-template-areas:
+    'mitte pb'
+    'krz   fh'
+    'nkn   nkn';
+  gap: 14px;
+}
+.kiez-mitte { grid-area: mitte; }
+.kiez-pb    { grid-area: pb; }
+.kiez-krz   { grid-area: krz; }
+.kiez-fh    { grid-area: fh; }
+.kiez-nkn   { grid-area: nkn; }
+
+.kiez-box {
+  background: rgba(0, 0, 0, 0.25);
+  border: 3px solid;
+  padding: 10px 12px;
+}
+.kiez-name {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: 10px;
+  margin-bottom: 4px;
+}
+.kiez-beschreibung { font-size: 12px; margin-bottom: 10px; }
+
+.kiez-bars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.bar-gebaeude {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: 3px solid transparent;
+  padding: 6px;
+  cursor: pointer;
+  color: var(--text);
+  font-family: 'Courier New', monospace;
+  max-width: 110px;
+}
+.bar-gebaeude:hover {
+  border-color: var(--amber);
+  background: rgba(255, 179, 71, 0.08);
+}
+.bar-gebaeude.gekauft { border-color: rgba(125, 255, 90, 0.35); }
+
+.bar-stern { position: absolute; top: 0; right: 2px; }
+.bar-label {
+  font-size: 11px;
+  text-align: center;
+  line-height: 1.25;
+}
+.bar-preis { font-size: 11px; }
+
+/* ── Bar-Screen ── */
+.bar-screen {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 16px;
+  margin-top: 14px;
+  align-items: start;
+}
+@media (max-width: 860px) { .bar-screen { grid-template-columns: 1fr; } }
+
+.szene-rahmen {
+  position: relative;
+  border: 4px solid var(--panel-dunkel);
+  margin-bottom: 12px;
+}
+.szene-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 8, 16, 0.55);
+  color: var(--amber);
+  font-size: 16px;
+  text-shadow: 3px 3px 0 #000;
+}
+
+.beschreibung {
+  font-style: italic;
+  color: var(--text-dim);
+  margin: 10px 0;
+}
+.zeilen-block { font-size: 13px; display: flex; flex-direction: column; gap: 3px; }
+
+.zeile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 3px 0;
+  font-size: 13px;
+}
+
+/* ── Tagesbericht ── */
+.bericht { max-width: 760px; margin: 0 auto; }
+
+.bericht-zeile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 2px solid var(--panel-dunkel);
+}
+.bericht-icon { flex-shrink: 0; }
+.bericht-mitte { flex: 1; }
+.kommentar { font-size: 12px; margin-top: 2px; }
+.bericht-zahlen {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 13px;
+  min-width: 110px;
+}
+
+.bericht-summe {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding: 12px 4px;
+  border-top: 4px double var(--panel-hell);
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: 12px;
+}
+
+.event-zeile {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 2px solid var(--panel-dunkel);
+}
+.event-optionen { display: flex; gap: 8px; margin-top: 8px; }
+
+/* ── Text-Helfer ── */
+.dim { color: var(--text-dim); }
+.amber { color: var(--amber); }
+.gruen { color: var(--gruen); }
+.rot { color: var(--rot); }
+.cyan { color: var(--cyan); }
+.geld { color: var(--geld); }
+
+/* ════════════════════════════════════════════════════════════════
+   NEU: Mehrspieler, KI-Rivale, Strategie-Ebenen, Animationen
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Setup-Screen ── */
+.setup-panel { max-width: 640px; margin: 40px auto; }
+.setup-intro p { margin-bottom: 10px; line-height: 1.5; font-size: 13px; }
+.setup-auswahl { display: flex; flex-direction: column; gap: 10px; }
+.setup-btn {
+  display: flex; align-items: center; justify-content: flex-start;
+  width: 100%; gap: 10px;
+}
+.setup-anzahl {
+  font-size: 18px; min-width: 22px; text-align: center;
+}
+.setup-label { flex: 1; text-align: left; }
+.setup-farben { display: flex; gap: 4px; }
+
+/* Kleiner farbiger Punkt — markiert Spieler/Besitzer überall im UI */
+.farb-punkt {
+  width: 10px; height: 10px;
+  display: inline-block;
+  border: 2px solid var(--panel-dunkel);
+}
+
+/* ── Spieler-Badge in der Statusleiste ── */
+.spieler-badge { display: flex; align-items: center; gap: 6px; }
+.spieler-badge b { color: var(--spielerfarbe, var(--text)); }
+
+/* ── Intro-Screen: "TAG X BEGINNT" ── */
+.intro-screen {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; min-height: 360px; text-align: center;
+  gap: 6px;
+}
+.intro-flacker { animation: intro-flicker 3.2s infinite; }
+.intro-tag-label { font-size: 12px; margin-bottom: 10px; letter-spacing: 2px; }
+.intro-tag-gross {
+  font-size: 34px; color: var(--amber);
+  text-shadow: 4px 4px 0 var(--panel-dunkel);
+  letter-spacing: 4px;
+}
+.intro-hinweis { font-size: 11px; margin-top: 16px; max-width: 480px; line-height: 1.6; }
+
+@keyframes intro-flicker {
+  0%, 100% { opacity: 1; }
+  91% { opacity: 1; }
+  92% { opacity: 0.35; }
+  93% { opacity: 1; }
+  95% { opacity: 0.6; }
+  96% { opacity: 1; }
+}
+
+/* ── CRT-Übergang zwischen Screens ── */
+.crt-uebergang {
+  animation: crt-in 0.4s steps(10, end);
+  transform-origin: center top;
+}
+@keyframes crt-in {
+  0%   { opacity: 0; transform: scaleY(0.02); filter: brightness(3.5) contrast(0.4); }
+  15%  { opacity: 1; transform: scaleY(1.06); filter: brightness(3) contrast(0.5); }
+  35%  { transform: scaleY(0.99); filter: brightness(1.5) contrast(1.3); }
+  60%  { transform: scaleY(1.005); filter: brightness(1.1) contrast(1.05); }
+  100% { opacity: 1; transform: scaleY(1); filter: brightness(1) contrast(1); }
+}
+
+/* ── Preis-/Aktions-Reihen im Bar-Screen ── */
+.aktion-reihe {
+  display: flex; gap: 6px; margin-top: 6px; align-items: center;
+}
+.pixel-select {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  background: var(--panel-dunkel);
+  color: var(--text);
+  border: 3px solid var(--panel-hell);
+  padding: 6px;
+  flex: 1;
+}
+
+/* ── Tagesbericht: Besitzer-Kennzeichnung & Ergebnis pro Person ── */
+.bericht-besitzer { display: block; font-size: 11px; margin-top: 2px; }
+.bericht-ergebnis {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: 11px;
+}
