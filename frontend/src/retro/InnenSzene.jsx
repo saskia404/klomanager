@@ -5,16 +5,8 @@
 // Fliegen rum.
 import { useRef, useEffect } from 'react'
 import { PALETTE } from './palette.js'
-import { zeichneSprite, zeichneSpriteEingefaerbt, FIGUREN, KLOBECKEN } from './sprites.js'
-
-// Farbtabellen fürs Klobecken-Sprite (B = Grundfarbe, H = Glanzlicht,
-// S = Schatten) — eine pro "Schüssel-Material" aus der Ausstattung.
-const BECKEN_FARBEN = {
-  standard: { B: PALETTE.w, H: PALETTE.h, S: PALETTE.x },   // Keramik weiß
-  holz:     { B: PALETTE.T, H: PALETTE.V, S: PALETTE.v },   // Holz
-  marmor:   { B: PALETTE.g, H: PALETTE.i, S: PALETTE.G },   // Marmor grau
-  gold:     { B: PALETTE.m, H: PALETTE.h, S: PALETTE.M },   // Gold
-}
+import { zeichneSprite, FIGUREN } from './sprites.js'
+import { zeichneKlobecken } from './klobecken.js'
 
 // Wand-/Boden-Farben je WC-Typ
 const RAUM_FARBEN = {
@@ -70,7 +62,8 @@ export default function InnenSzene({ toilette, gekauft, anzahlAusstattung = 0, a
       // ── Großes Klobecken — das Original-Klomanager-Schaufenster ──
       // Material zeigt die teuerste gekaufte Klobrille: Standard
       // (Keramik weiß) → Holz → Marmor (Beton-Grau) → Gold (Senfgelb).
-      // Feines 22×25-Pixel-Sprite statt grober Rechtecke.
+      // "Glossy-Look per Code": Farbverläufe + runde Formen statt
+      // Pixel-Raster, für die glatte 3D-gerenderte Klomanager-Optik.
       {
         const material = ausstattungIds.includes('brille-gold')
           ? 'gold'
@@ -80,22 +73,7 @@ export default function InnenSzene({ toilette, gekauft, anzahlAusstattung = 0, a
               ? 'holz'
               : 'standard'
 
-        zeichneSpriteEingefaerbt(ctx, KLOBECKEN, BECKEN_FARBEN[material], SCALE, 85 * SCALE, 15 * SCALE)
-
-        // Getränkehalter — das berühmte Windows-2000-Upgrade
-        if (ausstattungIds.includes('getraenkehalter')) {
-          px(107, 31, 3, 4, PALETTE.c)
-          px(107, 30, 3, 1, PALETTE.c)
-        }
-
-        // Goldene Klobrille glänzt gelegentlich
-        if (material === 'gold') {
-          const glanz = Math.sin(t * 2.4) > 0.7
-          ctx.globalAlpha = glanz ? 1 : 0.4
-          px(92, 28, 2, 1, PALETTE.h)
-          px(94, 32, 2, 1, PALETTE.h)
-          ctx.globalAlpha = 1
-        }
+        zeichneKlobecken(ctx, material, 415, 45, t, ausstattungIds.includes('getraenkehalter'))
       }
 
       // ── Waschbecken-Reihe ──

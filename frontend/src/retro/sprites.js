@@ -288,40 +288,6 @@ export const ICON_WC_SCHILD = [
   'wooowwooow',
 ]
 
-// ── Großes Klobecken (22 × 25 Pixel) ──────────────────────────────
-// Detail-Sprite fürs Klo-Innere. Nutzt Platzhalter-Buchstaben statt
-// fester Farben: B = Grundfarbe, H = Glanzlicht, S = Schatten.
-// InnenSzene.jsx ersetzt B/H/S je nach Material (Keramik, Holz,
-// Marmor, Gold) über zeichneSpriteEingefaerbt(). 'o' = Umriss,
-// '.' = durchsichtig.
-export const KLOBECKEN = [
-  '..oooooooooooooooooo..',
-  '...oHHHHHHHHHHHHHSo...',
-  '...oHHHHHHBBBBBBBSo...',
-  '...oHHHHHHBBBBBBBSo...',
-  '...oHHHHHBBBBBBBSSo...',
-  '...oHHHHHBBBBBBBSSo...',
-  '...oHHHHHBBBBBBBSSo...',
-  '...oHHHHHBBBBBBBSSo...',
-  '...oooooooooooooooo...',
-  '...SSSSSSSSSSSSSSSS...',
-  '.........oBBo.........',
-  '.........oBBo.........',
-  '.....oHHHHHHHHHHo.....',
-  '.....oHHHHBBBBBSo.....',
-  '...oHHHHHBBBBBBBSSo...',
-  '...oHHHHHBBBBBBBSSo...',
-  '...oHHHHBBBBBBBBSSo...',
-  '...oHHHHBBBBBBBBSSo...',
-  '...oHHHBBBBBBBBSSSo...',
-  '...oHHHBBBBBBBBSSSo...',
-  '...SSSSSSSSSSSSSSSS...',
-  '...oooooooooooooooo...',
-  '......oBBBBBBBBo......',
-  '......oBBBBBBBBo......',
-  '......oooooooooo......',
-]
-
 // ── Zeichen-Engine ────────────────────────────────────────────────
 
 // Malt ein Sprite-Raster auf einen Canvas-Kontext.
